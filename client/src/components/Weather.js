@@ -8,12 +8,16 @@ function Weather()
     const [cityName, setCityName] = useState('');
     const [isChecked, setIsChecked] = useState(false);
     const [weatherData, setWeatherData] = useState([]);
+    const [locationLoading, setLocationLoading] = useState(false);
+    const [weatherLoading, setWeatherLoading] = useState(false);
 
     const fetchWeather = async (city) => 
     {
         try 
         {
+            setWeatherLoading(true);
             const response = await axios.get(`http://localhost:3000/api/weather?cityName=${city}`);
+            setWeatherLoading(false);
             setWeatherData(response.data);
             console.log(response.data);
         } 
@@ -32,24 +36,21 @@ function Weather()
                 {
                     try 
                     {
-                        const response = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${position.coords.latitude}&lon=${position.coords.longitude}`);
-                        if (response.data && response.data.address) {
-                        const city = response.data.address.city || response.data.address.town || response.data.address.village;
-                        console.log(city);
-                        setCityName(city);
-                        if (city)
-                        {
-                            fetchWeather(city);
-                        }
-                    }
+                        setLocationLoading(true);
+                        const response = await axios.get(`http://localhost:3000/api/location?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`);
+                        console.log(response.data);
+                        setCityName(response.data.locality);
+                        setLocationLoading(false);
+                        fetchWeather(response.data.locality);
                     } 
                     catch (error) 
                     {
                         console.error('Error getting city name:', error);
                     }
                 },
-                (error) => {
-                console.error('Error getting location:', error);
+                (error) => 
+                {
+                    console.error('Error getting location:', error);
                 }
             );
         } 
@@ -95,7 +96,8 @@ function Weather()
                 </label>
                 <button type="submit">Search</button>
             </form>
-            {/* <p>{weatherData.main.temp}</p> */}
+            {locationLoading && <p>Fetching current location...</p>}
+            {weatherLoading && <p>Fetching weather data...</p>}
         </div>
     );
 }
