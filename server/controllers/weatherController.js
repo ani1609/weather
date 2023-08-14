@@ -1,5 +1,4 @@
 require('dotenv').config();
-
 const axios = require('axios');
 
 const fetchWeather = async (req, res) => 
@@ -7,7 +6,7 @@ const fetchWeather = async (req, res) =>
     const cityName = req.query.cityName;
     try 
     {
-        const weather = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${process.env.API_KEY}&units=metric`);
+        const weather = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${process.env.WEATHER_API_KEY}&units=metric`);
         res.send(weather.data);
     } 
     catch (error) 
