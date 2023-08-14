@@ -1,3 +1,26 @@
+.weather_parent
+{
+    width: 30rem;
+    height: 40rem;
+    /* background: rgba(255, 255, 255, 0.3); */
+    border-radius: 10px;
+    backdrop-filter: blur(1px);
+    overflow: hidden;
+}
+
+.weather_parent::before
+{
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    opacity: 1;
+    z-index: -1;
+}
+
+
 
 .toggle-switch 
 {
@@ -47,4 +70,13 @@ input:checked + .slider
 input:checked + .slider:before 
 {
     transform: translateX(30px);
+}
+
+
+
+.weather_child img
+{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
 }
