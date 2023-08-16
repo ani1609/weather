@@ -29,7 +29,7 @@ function Weather()
             if (weatherData)
             {
                 const localTime = new Date((response.data.dt * 1000) + (response.data.timezone));
-                console.log(localTime);
+                // console.log(localTime);
                 setLocalTime(localTime);
                 setWeatherLoading(false);
             }
@@ -126,7 +126,12 @@ function Weather()
             <div className='header'>
                 <div className='header_left'>
                     <Location className='location_icon'/>
-                    {weatherData.name && <h1>{weatherData.name}</h1>}
+                    {weatherData.name && (
+                        <h1>
+                            {weatherData.name}
+                            {weatherData.sys?.country ? `, ${weatherData.sys.country}` : ''}
+                        </h1>
+                    )}
                 </div>
                 <div className='header_right'>
                     <CurrentLocation className='current_location_icon'  onClick={handleDetectCurrentLocation}/>
@@ -200,7 +205,11 @@ function Weather()
 
                 <div className='temp_and_icon_container_right'>
                     <WeatherIcon
-                        id={weatherData.weather?.[0]?.id}
+                        weatherId={weatherData.weather?.[0]?.id}
+                        timezone={weatherData.timezone}
+                        timestamp={weatherData.dt}
+                        sunriseTimestamp={weatherData.sys?.sunrise}
+                        sunsetTimestamp={weatherData.sys?.sunset}
                     />
                 </div>
             </div>

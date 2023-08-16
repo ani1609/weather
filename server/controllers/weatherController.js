@@ -9,44 +9,47 @@ const fetchWeather = async (req, res) =>
         // const weather = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${process.env.WEATHER_API_KEY}&units=metric`);
         res.send({
             "coord": {
-            "lon": 4.8897,
-            "lat": 52.374
+            "lon": 88.6714,
+            "lat": 22.3189
             },
             "weather": [
             {
-            "id": 803,
+            "id": 804,
             "main": "Clouds",
-            "description": "broken clouds",
-            "icon": "04d"
+            "description": "overcast clouds",
+            "icon": "04n"
             }
             ],
             "base": "stations",
             "main": {
-            "temp": 20.5,
-            "feels_like": 25.55,
-            "temp_min": 19.33,
-            "temp_max": 21.62,
-            "pressure": 1014,
-            "humidity": 83
+            "temp": 28.01,
+            "feels_like": 32.76,
+            "temp_min": 28.01,
+            "temp_max": 28.01,
+            "pressure": 1002,
+            "humidity": 84,
+            "sea_level": 1002,
+            "grnd_level": 1001
             },
             "visibility": 10000,
             "wind": {
-            "speed": 5.14,
-            "deg": 240
+            "speed": 1.89,
+            "deg": 3,
+            "gust": 2.33
             },
             "clouds": {
-            "all": 75
+            "all": 100
             },
-            "dt": 1692143930,
+            "dt": 1692219712,
             "sys": {
-            "type": 2,
-            "id": 2012552,
-            "country": "NL",
-            "sunrise": 1692073368,
-            "sunset": 1692126448
+            "type": 1,
+            "id": 9114,
+            "country": "IN",
+            "sunrise": 1692229390,
+            "sunset": 1692275771
             },
             "timezone": 19800,
-            "id": 2759794,
+            "id": 1274984,
             "name": "Canning",
             "cod": 200
             });
