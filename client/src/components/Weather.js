@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../styles/Weather.css';
 import '../index.css';
 import axios from 'axios';
+import WeatherIcon from './WeatherIcon';
 import { ReactComponent as Location } from '../icons/location.svg';
 import { ReactComponent as CurrentLocation } from '../icons/currentLocation.svg';
 import { ReactComponent as ArrowUp } from '../icons/arrowUp.svg';
@@ -15,6 +16,8 @@ function Weather()
     const [weatherData, setWeatherData] = useState({});
     const [locationLoading, setLocationLoading] = useState(false);
     const [weatherLoading, setWeatherLoading] = useState(false);
+    const [localTime, setLocalTime] = useState("");
+
 
     const fetchWeather = async (city) => 
     {
@@ -25,6 +28,9 @@ function Weather()
             setWeatherData(response.data);
             if (weatherData)
             {
+                const localTime = new Date((response.data.dt * 1000) + (response.data.timezone));
+                // console.log(localTime);
+                setLocalTime(localTime);
                 setWeatherLoading(false);
             }
         } 
@@ -92,6 +98,7 @@ function Weather()
     {
         setIsChecked(event.target.checked);
     };
+    
 
     return (
         <div className="weather_parent">
@@ -119,7 +126,12 @@ function Weather()
             <div className='header'>
                 <div className='header_left'>
                     <Location className='location_icon'/>
-                    {weatherData.name && <h1>{weatherData.name}</h1>}
+                    {weatherData.name && (
+                        <h1>
+                            {weatherData.name}
+                            {weatherData.sys?.country ? `, ${weatherData.sys.country}` : ''}
+                        </h1>
+                    )}
                 </div>
                 <div className='header_right'>
                     <CurrentLocation className='current_location_icon'  onClick={handleDetectCurrentLocation}/>
@@ -189,6 +201,16 @@ function Weather()
                         :
                         <h2>Feels like 0</h2>}     
                     </div>
+                </div>
+
+                <div className='temp_and_icon_container_right'>
+                    <WeatherIcon
+                        weatherId={weatherData.weather?.[0]?.id}
+                        timezone={weatherData.timezone}
+                        timestamp={weatherData.dt}
+                        sunriseTimestamp={weatherData.sys?.sunrise}
+                        sunsetTimestamp={weatherData.sys?.sunset}
+                    />
                 </div>
             </div>
             
