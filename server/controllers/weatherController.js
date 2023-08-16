@@ -37,7 +37,7 @@ const fetchWeather = async (req, res) =>
             "clouds": {
             "all": 75
             },
-            "dt": 1692091294,
+            "dt": 1692143930,
             "sys": {
             "type": 2,
             "id": 2012552,
@@ -45,7 +45,7 @@ const fetchWeather = async (req, res) =>
             "sunrise": 1692073368,
             "sunset": 1692126448
             },
-            "timezone": 7200,
+            "timezone": 19800,
             "id": 2759794,
             "name": "Canning",
             "cod": 200
