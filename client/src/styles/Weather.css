@@ -1,6 +1,6 @@
 .weather_parent
 {
-    width: 30rem;
+    width: 25rem;
     height: 40rem;
     position: relative;
     z-index: 1;
@@ -197,12 +197,13 @@ input:checked + .slider:before
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 2px;
 }
 
 .temp_min_max div h2
 {
     margin: 0;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 400;
     color: white;
     letter-spacing: 0.5px;
@@ -213,8 +214,8 @@ input:checked + .slider:before
 .arrowUp_icon, .arrowDown_icon
 {
     fill: white;
-    width: 15px;
-    height: 15px;
+    width: 14px;
+    height: 14px;
 }
 
 .celcius
@@ -242,7 +243,7 @@ input:checked + .slider:before
 .temp_and_icon_container_left_right h2
 {
     margin: 0;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 400;
     color: white;
     letter-spacing: 0.5px;
