@@ -32,7 +32,7 @@ function Weather()
         try 
         {
             setWeatherLoading(true);
-            const response = await axios.get(`https://weather-nluwkbk6m-ani1609.vercel.app/api/weather?cityName=${city}`);
+            const response = await axios.get(`https://weather-acj2.vercel.app/api/weather?cityName=${city}`);
             setWeatherData(response.data);
             if (weatherData)
             {
@@ -58,7 +58,7 @@ function Weather()
                     try 
                     {
                         setLocationLoading(true);
-                        const response = await axios.get(`https://weather-nluwkbk6m-ani1609.vercel.app/api/location?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`);
+                        const response = await axios.get(`https://weather-acj2.vercel.app/api/location?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`);
                         setCityName(response.data.locality);
                         setLocationLoading(false);
                         fetchWeather(response.data.locality);
