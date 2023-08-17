@@ -9,45 +9,48 @@ const fetchWeather = async (req, res) =>
         // const weather = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${process.env.WEATHER_API_KEY}&units=metric`);
         res.send({
             "coord": {
-            "lon": 2.3488,
-            "lat": 48.8534
+            "lon": 88.6714,
+            "lat": 22.3189
             },
             "weather": [
             {
-            "id": 800,
-            "main": "Clear",
-            "description": "clear sky",
-            "icon": "01n"
+            "id": 804,
+            "main": "Clouds",
+            "description": "overcast clouds",
+            "icon": "04n"
             }
             ],
             "base": "stations",
             "main": {
-            "temp": 23.47,
-            "feels_like": 23.67,
-            "temp_min": 21.67,
-            "temp_max": 24.28,
-            "pressure": 1015,
-            "humidity": 69
+            "temp": 27.01,
+            "feels_like": 31.09,
+            "temp_min": 27.01,
+            "temp_max": 27.01,
+            "pressure": 1001,
+            "humidity": 93,
+            "sea_level": 1001,
+            "grnd_level": 1000
             },
             "visibility": 10000,
             "wind": {
-            "speed": 4.12,
-            "deg": 50
+            "speed": 4.68,
+            "deg": 69,
+            "gust": 8.9
             },
             "clouds": {
-            "all": 0
+            "all": 97
             },
-            "dt": 1692305069,
+            "dt": 1692308485,
             "sys": {
-            "type": 2,
-            "id": 2041230,
-            "country": "FR",
-            "sunrise": 1692247536,
-            "sunset": 1692299053
+            "type": 1,
+            "id": 9114,
+            "country": "IN",
+            "sunrise": 1692315811,
+            "sunset": 1692362125
             },
-            "timezone": 7200,
-            "id": 2988507,
-            "name": "Paris",
+            "timezone": 19800,
+            "id": 1274984,
+            "name": "Canning",
             "cod": 200
             });
     } 
