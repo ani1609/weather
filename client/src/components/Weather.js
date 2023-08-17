@@ -287,7 +287,7 @@ function Weather()
                 </div>
             </div>
 
-            {/* <div className='details'>
+            <div className='details'>
                 <h4>DETAILS</h4>
                 <div className='infos'>
                     <div>
@@ -315,7 +315,7 @@ function Weather()
                         {weatherData.main?.grnd_level ? <h3>{weatherData.main.grnd_level} hPa</h3> :<h3>0 hPa</h3>}
                     </div>
                 </div>
-            </div> */}
+            </div>
         </div>
     );
 }
