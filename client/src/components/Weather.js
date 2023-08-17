@@ -7,6 +7,8 @@ import { ReactComponent as Location } from '../icons/location.svg';
 import { ReactComponent as CurrentLocation } from '../icons/currentLocation.svg';
 import { ReactComponent as ArrowUp } from '../icons/arrowUp.svg';
 import { ReactComponent as ArrowDown } from '../icons/arrowDown.svg';
+// import { ReactComponent as Sun } from '../icons/clearSkyDay.svg';
+import Sun from "../images/sun.png";
 
 
 function Weather() 
@@ -17,6 +19,12 @@ function Weather()
     const [locationLoading, setLocationLoading] = useState(false);
     const [weatherLoading, setWeatherLoading] = useState(false);
     const [localTime, setLocalTime] = useState("");
+    const [sunriseTime, setSunriseTime] = useState("");
+    const [sunsetTime, setSunsetTime] = useState("");
+    const [isDay, setIsDay] = useState(false);
+    const [windDirection, setWindDirection]=useState("");
+    const [daylightPercentageSun, setDaylightPercentageSun] = useState(0);
+    const [daylightPercentageBar, setDaylightPercentageBar] = useState(0);
 
 
     const fetchWeather = async (city) => 
@@ -81,6 +89,59 @@ function Weather()
     {
         detectCurrentLocation();
     };
+
+    useEffect (() =>
+    {
+        if (weatherData.wind?.deg)
+        {
+            const directions = ["North", "North-east", "East", "South-east", "South ", "South-west", "West", "North-west"];
+            const index = Math.round(weatherData.wind.deg / 45) % 8;
+            setWindDirection(directions[index]);
+        }
+    },[weatherData]);
+
+
+    useEffect(() =>
+    {
+        if (weatherData.sys?.sunrise)
+        {
+            const sunriseTime = new Date((weatherData.sys.sunrise * 1000) + (weatherData.timezone));
+            setSunriseTime(sunriseTime);
+        }
+        if (weatherData.sys?.sunset)
+        {
+            const sunsetTime = new Date((weatherData.sys.sunset * 1000) + (weatherData.timezone));
+            setSunsetTime(sunsetTime);
+        }
+    },[weatherData]);
+
+    useEffect(() =>
+    {
+        if (localTime && sunriseTime && sunsetTime)
+        {
+            if (localTime > sunriseTime && localTime < sunsetTime)
+            {
+                setIsDay(true);
+            }
+            else
+            {
+                setIsDay(false);
+            }
+        }
+    },[localTime, sunriseTime, sunsetTime]);
+
+    useEffect(() =>
+    {
+        if (localTime && sunriseTime && sunsetTime)
+        {
+            const daylight = sunsetTime - sunriseTime;
+            const daylightPercentage = ((localTime - sunriseTime) / daylight) * 100;
+            setDaylightPercentageBar(daylightPercentage);
+            setDaylightPercentageSun(daylightPercentage+785);
+        }
+    },[localTime, sunriseTime, sunsetTime]);
+
+
 
     const handleSubmit = (e) => 
     {
@@ -206,14 +267,55 @@ function Weather()
                 <div className='temp_and_icon_container_right'>
                     <WeatherIcon
                         weatherId={weatherData.weather?.[0]?.id}
-                        timezone={weatherData.timezone}
-                        timestamp={weatherData.dt}
-                        sunriseTimestamp={weatherData.sys?.sunrise}
-                        sunsetTimestamp={weatherData.sys?.sunset}
+                        isDay={isDay}
                     />
                 </div>
             </div>
-            
+
+            <div className='sunrise_sunset_container'>
+                <h4>SUNRISE & SUNSET</h4>
+                <div className='sunrise_sunset_content'>
+                    {sunriseTime && (
+                        <p>{sunriseTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</p>
+                    )}
+                    <div className='progress_bar'>
+                        <div className='progress' style={{ width: `${daylightPercentageBar}%` }}></div>
+                    </div>
+                    {sunsetTime && (
+                        <p>{sunsetTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</p>
+                    )}
+                </div>
+            </div>
+
+            <div className='details'>
+                <h4>DETAILS</h4>
+                <div className='infos'>
+                    <div>
+                        <p>Pressure</p>
+                        {weatherData.main?.pressure ? <h3>{weatherData.main.pressure} hPa</h3> :<h3>0 hPa</h3>}
+                    </div>
+                    <div>
+                        <p>Humidity</p>
+                        {weatherData.main?.humidity ? <h3>{weatherData.main.humidity} %</h3> :<h3>0 %</h3>}
+                    </div>
+                    <div>
+                        <p>Visibility</p>
+                        {weatherData.visibility ? <h3>{weatherData.visibility} m</h3> :<h3>0 m</h3>}
+                    </div>
+                    <div>
+                        <p>{windDirection} wind</p>
+                        {weatherData.wind?.speed ? <h3>{weatherData.wind.speed} km/h</h3> :<h3>0 km/h</h3>}
+                    </div>
+                    <div>
+                        <p>Sea Level</p>
+                        {weatherData.main?.sea_level ? <h3>{weatherData.main.sea_level} hPa</h3> :<h3>0 hPa</h3>}
+                    </div>
+                    <div>
+                        <p>Ground Level</p>
+                        {weatherData.main?.grnd_level ? <h3>{weatherData.main.grnd_level} hPa</h3> :<h3>0 hPa</h3>}
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
