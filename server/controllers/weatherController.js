@@ -14,33 +14,33 @@ const fetchWeather = async (req, res) =>
             },
             "weather": [
             {
-            "id": 804,
+            "id": 803,
             "main": "Clouds",
-            "description": "overcast clouds",
+            "description": "broken clouds",
             "icon": "04n"
             }
             ],
             "base": "stations",
             "main": {
-            "temp": 28.01,
-            "feels_like": 32.76,
-            "temp_min": 28.01,
-            "temp_max": 28.01,
-            "pressure": 1002,
-            "humidity": 84,
-            "sea_level": 1002,
-            "grnd_level": 1001
+            "temp": 27.01,
+            "feels_like": 30.55,
+            "temp_min": 27.01,
+            "temp_max": 27.01,
+            "pressure": 1003,
+            "humidity": 88,
+            "sea_level": 1003,
+            "grnd_level": 1003
             },
             "visibility": 10000,
             "wind": {
-            "speed": 1.89,
-            "deg": 3,
-            "gust": 2.33
+            "speed": 3.14,
+            "deg": 130,
+            "gust": 6.11
             },
             "clouds": {
-            "all": 100
+            "all": 62
             },
-            "dt": 1692219712,
+            "dt": 1692283358,
             "sys": {
             "type": 1,
             "id": 9114,

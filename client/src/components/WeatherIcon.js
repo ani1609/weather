@@ -57,27 +57,7 @@ import { ReactComponent as OverCastCloudsNight } from '../icons/overcastCloudsNi
 
 function WeatherIcon(props) 
 {
-    const { weatherId, timezone, timestamp, sunsetTimestamp, sunriseTimestamp } = props;
-    const [isDay, setIsDay] = useState(true);
-
-    useEffect(() => 
-    {
-        if (sunsetTimestamp && sunriseTimestamp) 
-        {
-            const sunriseTime = new Date((sunriseTimestamp * 1000) + timezone);
-            const sunsetTime = new Date((sunsetTimestamp * 1000) + timezone);
-            const localTime = new Date((timestamp * 1000) + timezone);
-
-            if (localTime > sunriseTime && localTime < sunsetTime) 
-            {
-                setIsDay(true);
-            } 
-            else 
-            {
-                setIsDay(false);
-            }
-        }
-    }, [sunsetTimestamp, sunriseTimestamp, timestamp, timezone]);
+    const { weatherId, isDay } = props;
 
     const weatherIcons = 
     {

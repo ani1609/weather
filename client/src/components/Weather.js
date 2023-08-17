@@ -17,6 +17,10 @@ function Weather()
     const [locationLoading, setLocationLoading] = useState(false);
     const [weatherLoading, setWeatherLoading] = useState(false);
     const [localTime, setLocalTime] = useState("");
+    const [sunriseTime, setSunriseTime] = useState("");
+    const [sunsetTime, setSunsetTime] = useState("");
+    const [isDay, setIsDay] = useState(false);
+    const [windDirection, setWindDirection]=useState("");
 
 
     const fetchWeather = async (city) => 
@@ -81,6 +85,48 @@ function Weather()
     {
         detectCurrentLocation();
     };
+
+    useEffect (() =>
+    {
+        if (weatherData.wind?.deg)
+        {
+            const directions = ["North", "North-east", "East", "South-east", "South ", "South-west", "West", "North-west"];
+            const index = Math.round(weatherData.wind.deg / 45) % 8;
+            setWindDirection(directions[index]);
+        }
+    },[weatherData]);
+
+
+    useEffect(() =>
+    {
+        if (weatherData.sys?.sunrise)
+        {
+            const sunriseTime = new Date((weatherData.sys.sunrise * 1000) + (weatherData.timezone));
+            setSunriseTime(sunriseTime);
+        }
+        if (weatherData.sys?.sunset)
+        {
+            const sunsetTime = new Date((weatherData.sys.sunset * 1000) + (weatherData.timezone));
+            setSunsetTime(sunsetTime);
+        }
+    },[weatherData]);
+
+    useEffect(() =>
+    {
+        if (localTime && sunriseTime && sunsetTime)
+        {
+            if (localTime > sunriseTime && localTime < sunsetTime)
+            {
+                setIsDay(true);
+            }
+            else
+            {
+                setIsDay(false);
+            }
+        }
+    },[localTime, sunriseTime, sunsetTime]);
+
+
 
     const handleSubmit = (e) => 
     {
@@ -206,14 +252,40 @@ function Weather()
                 <div className='temp_and_icon_container_right'>
                     <WeatherIcon
                         weatherId={weatherData.weather?.[0]?.id}
-                        timezone={weatherData.timezone}
-                        timestamp={weatherData.dt}
-                        sunriseTimestamp={weatherData.sys?.sunrise}
-                        sunsetTimestamp={weatherData.sys?.sunset}
+                        isDay={isDay}
                     />
                 </div>
             </div>
-            
+
+            <div className='details'>
+                <h4>DETAILS</h4>
+                <div className='infos'>
+                    <div>
+                        <p>Pressure</p>
+                        {weatherData.main?.pressure ? <h3>{weatherData.main.pressure} hPa</h3> :<h3>0 hPa</h3>}
+                    </div>
+                    <div>
+                        <p>Humidity</p>
+                        {weatherData.main?.humidity ? <h3>{weatherData.main.humidity} %</h3> :<h3>0 %</h3>}
+                    </div>
+                    <div>
+                        <p>Visibility</p>
+                        {weatherData.visibility ? <h3>{weatherData.visibility} m</h3> :<h3>0 m</h3>}
+                    </div>
+                    <div>
+                        <p>{windDirection} wind</p>
+                        {weatherData.wind?.speed ? <h3>{weatherData.wind.speed} km/h</h3> :<h3>0 km/h</h3>}
+                    </div>
+                    <div>
+                        <p>Sea Level</p>
+                        {weatherData.main?.sea_level ? <h3>{weatherData.main.sea_level} hPa</h3> :<h3>0 hPa</h3>}
+                    </div>
+                    <div>
+                        <p>Ground Level</p>
+                        {weatherData.main?.grnd_level ? <h3>{weatherData.main.grnd_level} hPa</h3> :<h3>0 hPa</h3>}
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
