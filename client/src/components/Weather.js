@@ -65,6 +65,9 @@ function Weather()
                     } 
                     catch (error) 
                     {
+                        setCityName("New Delhi");
+                        setLocationLoading(false);
+                        fetchWeather("New Delhi");
                         console.error('Error getting city name:', error);
                     }
                 },
