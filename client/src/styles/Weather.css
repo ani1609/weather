@@ -128,13 +128,7 @@ input:checked + .slider:before
 }
 
 
-
-.weather_child img
-{
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-}
+/* -----------------temp and icon----------------- */
 
 .temp_and_icon_container
 {
@@ -254,6 +248,60 @@ input:checked + .slider:before
     letter-spacing: 0.5px;
     /* font-family: 'Poppins', sans-serif; */
 }
+
+
+
+/* ------------sunset sunrise---------- */
+
+.sunrise_sunset_container
+{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0px 10px;
+}
+
+.sunrise_sunset_container h4
+{
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+}
+
+.sunrise_sunset_content
+{
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.progress_bar
+{
+    position: relative;
+    width: 60%;
+    height: 5px;
+    background: white;
+}
+
+.progress
+{
+    height: 100%;
+    background-color: #91EAE4;
+    transition: width 3s linear;
+    max-width: 100%;
+}
+
+.sunrise_sunset_content p
+{
+    margin: 0;
+    font-size: 14px;
+    font-weight: 300;
+    color: white;
+}
+
+
+/* --------------details------------- */
 
 .details
 {

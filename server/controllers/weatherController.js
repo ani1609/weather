@@ -9,48 +9,45 @@ const fetchWeather = async (req, res) =>
         // const weather = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${process.env.WEATHER_API_KEY}&units=metric`);
         res.send({
             "coord": {
-            "lon": 88.6714,
-            "lat": 22.3189
+            "lon": -0.1257,
+            "lat": 51.5085
             },
             "weather": [
             {
-            "id": 803,
+            "id": 801,
             "main": "Clouds",
-            "description": "broken clouds",
-            "icon": "04n"
+            "description": "few clouds",
+            "icon": "02d"
             }
             ],
             "base": "stations",
             "main": {
-            "temp": 27.01,
-            "feels_like": 30.55,
-            "temp_min": 27.01,
-            "temp_max": 27.01,
-            "pressure": 1003,
-            "humidity": 88,
-            "sea_level": 1003,
-            "grnd_level": 1003
+            "temp": 23.51,
+            "feels_like": 23.38,
+            "temp_min": 20.95,
+            "temp_max": 25.16,
+            "pressure": 1017,
+            "humidity": 56
             },
             "visibility": 10000,
             "wind": {
-            "speed": 3.14,
-            "deg": 130,
-            "gust": 6.11
+            "speed": 7.72,
+            "deg": 100
             },
             "clouds": {
-            "all": 62
+            "all": 19
             },
-            "dt": 1692283358,
+            "dt": 1692286538,
             "sys": {
-            "type": 1,
-            "id": 9114,
-            "country": "IN",
-            "sunrise": 1692229390,
-            "sunset": 1692275771
+            "type": 2,
+            "id": 2075535,
+            "country": "GB",
+            "sunrise": 1692247718,
+            "sunset": 1692300059
             },
-            "timezone": 19800,
-            "id": 1274984,
-            "name": "Canning",
+            "timezone": 3600,
+            "id": 2643743,
+            "name": "London",
             "cod": 200
             });
     } 

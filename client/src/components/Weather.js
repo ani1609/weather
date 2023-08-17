@@ -7,6 +7,8 @@ import { ReactComponent as Location } from '../icons/location.svg';
 import { ReactComponent as CurrentLocation } from '../icons/currentLocation.svg';
 import { ReactComponent as ArrowUp } from '../icons/arrowUp.svg';
 import { ReactComponent as ArrowDown } from '../icons/arrowDown.svg';
+// import { ReactComponent as Sun } from '../icons/clearSkyDay.svg';
+import Sun from "../images/sun.png";
 
 
 function Weather() 
@@ -21,6 +23,8 @@ function Weather()
     const [sunsetTime, setSunsetTime] = useState("");
     const [isDay, setIsDay] = useState(false);
     const [windDirection, setWindDirection]=useState("");
+    const [daylightPercentageSun, setDaylightPercentageSun] = useState(0);
+    const [daylightPercentageBar, setDaylightPercentageBar] = useState(0);
 
 
     const fetchWeather = async (city) => 
@@ -123,6 +127,17 @@ function Weather()
             {
                 setIsDay(false);
             }
+        }
+    },[localTime, sunriseTime, sunsetTime]);
+
+    useEffect(() =>
+    {
+        if (localTime && sunriseTime && sunsetTime)
+        {
+            const daylight = sunsetTime - sunriseTime;
+            const daylightPercentage = ((localTime - sunriseTime) / daylight) * 100;
+            setDaylightPercentageBar(daylightPercentage);
+            setDaylightPercentageSun(daylightPercentage+785);
         }
     },[localTime, sunriseTime, sunsetTime]);
 
@@ -257,7 +272,22 @@ function Weather()
                 </div>
             </div>
 
-            <div className='details'>
+            <div className='sunrise_sunset_container'>
+                <h4>SUNRISE & SUNSET</h4>
+                <div className='sunrise_sunset_content'>
+                    {sunriseTime && (
+                        <p>{sunriseTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</p>
+                    )}
+                    <div className='progress_bar'>
+                        <div className='progress' style={{ width: `${daylightPercentageBar}%` }}></div>
+                    </div>
+                    {sunsetTime && (
+                        <p>{sunsetTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</p>
+                    )}
+                </div>
+            </div>
+
+            {/* <div className='details'>
                 <h4>DETAILS</h4>
                 <div className='infos'>
                     <div>
@@ -285,7 +315,7 @@ function Weather()
                         {weatherData.main?.grnd_level ? <h3>{weatherData.main.grnd_level} hPa</h3> :<h3>0 hPa</h3>}
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 }
