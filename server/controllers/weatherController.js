@@ -9,45 +9,45 @@ const fetchWeather = async (req, res) =>
         // const weather = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${process.env.WEATHER_API_KEY}&units=metric`);
         res.send({
             "coord": {
-            "lon": -0.1257,
-            "lat": 51.5085
+            "lon": 2.3488,
+            "lat": 48.8534
             },
             "weather": [
             {
-            "id": 801,
-            "main": "Clouds",
-            "description": "few clouds",
-            "icon": "02d"
+            "id": 800,
+            "main": "Clear",
+            "description": "clear sky",
+            "icon": "01n"
             }
             ],
             "base": "stations",
             "main": {
-            "temp": 23.51,
-            "feels_like": 23.38,
-            "temp_min": 20.95,
-            "temp_max": 25.16,
-            "pressure": 1017,
-            "humidity": 56
+            "temp": 23.47,
+            "feels_like": 23.67,
+            "temp_min": 21.67,
+            "temp_max": 24.28,
+            "pressure": 1015,
+            "humidity": 69
             },
             "visibility": 10000,
             "wind": {
-            "speed": 7.72,
-            "deg": 100
+            "speed": 4.12,
+            "deg": 50
             },
             "clouds": {
-            "all": 19
+            "all": 0
             },
-            "dt": 1692286538,
+            "dt": 1692305069,
             "sys": {
             "type": 2,
-            "id": 2075535,
-            "country": "GB",
-            "sunrise": 1692247718,
-            "sunset": 1692300059
+            "id": 2041230,
+            "country": "FR",
+            "sunrise": 1692247536,
+            "sunset": 1692299053
             },
-            "timezone": 3600,
-            "id": 2643743,
-            "name": "London",
+            "timezone": 7200,
+            "id": 2988507,
+            "name": "Paris",
             "cod": 200
             });
     } 
