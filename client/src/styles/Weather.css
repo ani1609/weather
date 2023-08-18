@@ -52,7 +52,6 @@
     display: flex;;
     justify-content: flex-start;
     align-items: center;
-    gap: 5px;
 }
 
 .location_icon
@@ -65,11 +64,22 @@
 .header_left h1
 {
     margin: 0;
+    margin-left: 5px;
     font-size: 25px;
     font-weight: 500;
     /* font-family: 'Poppins', sans-serif; */
     color: white;
 }
+
+.edit_icon
+{
+    fill: white;
+    width: 22px;
+    height: 22px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
 
 .header_right
 {
