@@ -23,7 +23,6 @@ function Weather()
     const [sunsetTime, setSunsetTime] = useState("");
     const [isDay, setIsDay] = useState(false);
     const [windDirection, setWindDirection]=useState("");
-    const [daylightPercentageSun, setDaylightPercentageSun] = useState(0);
     const [daylightPercentageBar, setDaylightPercentageBar] = useState(0);
 
 
@@ -33,6 +32,7 @@ function Weather()
         {
             setWeatherLoading(true);
             const response = await axios.get(`https://weather-forcast-2.onrender.com/api/weather?cityName=${city}`);
+            // const response = await axios.get(`http://localhost:3000/api/weather?cityName=${city}`);
             setWeatherData(response.data);
             if (weatherData)
             {
@@ -58,13 +58,15 @@ function Weather()
                     {
                         setLocationLoading(true);
                         const response = await axios.get(`https://weather-forcast-2.onrender.com/api/location?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`);
-                        setCityName(response.data.locality);
+                        // const response = await axios.get(`http://localhost:3000/api/location?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`);
+                        setCityName(response.data.city);
                         setLocationLoading(false);
-                        fetchWeather(response.data.locality);
+                        fetchWeather(response.data.city);
                     } 
                     catch (error) 
                     {
-                        console.error('Error getting city name:', error);
+                        console.error(error);
+                        alert("Error fetching location.");
                     }
                 },
                 (error) => 
@@ -141,7 +143,6 @@ function Weather()
             const daylight = sunsetTime - sunriseTime;
             const daylightPercentage = ((localTime - sunriseTime) / daylight) * 100;
             setDaylightPercentageBar(daylightPercentage);
-            setDaylightPercentageSun(daylightPercentage+785);
         }
     },[localTime, sunriseTime, sunsetTime]);
 
