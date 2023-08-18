@@ -50,7 +50,7 @@ const fetchWeather = async (req, res) =>
             },
             "timezone": 19800,
             "id": 1274984,
-            "name": "Canning",
+            "name": cityName,
             "cod": 200
             });
     } 
