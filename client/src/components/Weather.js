@@ -7,6 +7,7 @@ import { ReactComponent as Location } from '../icons/location.svg';
 import { ReactComponent as CurrentLocation } from '../icons/currentLocation.svg';
 import { ReactComponent as ArrowUp } from '../icons/arrowUp.svg';
 import { ReactComponent as ArrowDown } from '../icons/arrowDown.svg';
+import { ReactComponent as Edit } from '../icons/edit.svg';
 // import { ReactComponent as Sun } from '../icons/clearSkyDay.svg';
 import Sun from "../images/sun.png";
 
@@ -24,6 +25,7 @@ function Weather()
     const [isDay, setIsDay] = useState(false);
     const [windDirection, setWindDirection]=useState("");
     const [daylightPercentageBar, setDaylightPercentageBar] = useState(0);
+    const [formShow, setFormShow] = useState(false);
 
 
     const fetchWeather = async (city) => 
@@ -31,8 +33,9 @@ function Weather()
         try 
         {
             setWeatherLoading(true);
-            const response = await axios.get(`https://weather-forcast-2.onrender.com/api/weather?cityName=${city}`);
-            // const response = await axios.get(`http://localhost:3000/api/weather?cityName=${city}`);
+            setDaylightPercentageBar(0);
+            // const response = await axios.get(`https://weather-forcast-2.onrender.com/api/weather?cityName=${city}`);
+            const response = await axios.get(`http://localhost:3000/api/weather?cityName=${city}`);
             setWeatherData(response.data);
             if (weatherData)
             {
@@ -57,8 +60,8 @@ function Weather()
                     try 
                     {
                         setLocationLoading(true);
-                        const response = await axios.get(`https://weather-forcast-2.onrender.com/api/location?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`);
-                        // const response = await axios.get(`http://localhost:3000/api/location?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`);
+                        // const response = await axios.get(`https://weather-forcast-2.onrender.com/api/location?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`);
+                        const response = await axios.get(`http://localhost:3000/api/location?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`);
                         setCityName(response.data.city);
                         setLocationLoading(false);
                         fetchWeather(response.data.city);
@@ -150,8 +153,8 @@ function Weather()
 
     const handleSubmit = (e) => 
     {
+        setFormShow(false);
         e.preventDefault();
-        console.log(cityName);
         fetchWeather(cityName);
     };
 
@@ -168,7 +171,7 @@ function Weather()
 
     return (
         <div className="weather_parent">
-            {/* <form onSubmit={handleSubmit}>
+            { formShow && <form onSubmit={handleSubmit}>
                 <input 
                     type="text" 
                     placeholder="Enter City Name"
@@ -185,11 +188,12 @@ function Weather()
                     <span className="slider"></span>
                 </label>
                 <button type="submit">Search</button>
-            </form>*/}
-            {locationLoading && <p className='edge_cases'>Fetching current location...</p>}
-            {weatherLoading && <p className='edge_cases'>Fetching weather data...</p>} 
+            </form>}
 
-            {!locationLoading && !weatherLoading && <div className='header'>
+            {locationLoading && !formShow && <p className='edge_cases'>Fetching current location...</p>}
+            {weatherLoading && !formShow && <p className='edge_cases'>Fetching weather data...</p>} 
+            
+            {!formShow && <div className='header'>
                 <div className='header_left'>
                     <Location className='location_icon'/>
                     {weatherData.name && (
@@ -198,6 +202,7 @@ function Weather()
                             {weatherData.sys?.country ? `, ${weatherData.sys.country}` : ''}
                         </h1>
                     )}
+                    <Edit className='edit_icon' onClick={() => setFormShow(true)} />
                 </div>
                 <div className='header_right'>
                     <CurrentLocation className='current_location_icon'  onClick={handleDetectCurrentLocation}/>
@@ -214,7 +219,7 @@ function Weather()
                 </div>
             </div>}
 
-            {!locationLoading && !weatherLoading && <div className='temp_and_icon_container'>
+            {!formShow && <div className='temp_and_icon_container'>
                 <div className='temp_and_icon_container_left'>
                     <div className='temp_and_icon_container_left_left'>
                         <div className='main_temp'>
@@ -277,7 +282,7 @@ function Weather()
                 </div>
             </div>}
 
-            {!locationLoading && !weatherLoading && <div className='sunrise_sunset_container'>
+            {!formShow && <div className='sunrise_sunset_container'>
                 <h4>SUNRISE & SUNSET</h4>
                 <div className='sunrise_sunset_content'>
                     {sunriseTime && (
@@ -292,7 +297,7 @@ function Weather()
                 </div>
             </div>}
 
-            {!locationLoading && !weatherLoading && <div className='details'>
+            {!formShow && <div className='details'>
                 <h4>DETAILS</h4>
                 <div className='infos'>
                     <div>
