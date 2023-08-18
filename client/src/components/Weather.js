@@ -16,7 +16,7 @@ function Weather()
     const [cityName, setCityName] = useState('');
     const [isChecked, setIsChecked] = useState(false);
     const [weatherData, setWeatherData] = useState({});
-    const [locationLoading, setLocationLoading] = useState(false);
+    const [locationLoading, setLocationLoading] = useState(true);
     const [weatherLoading, setWeatherLoading] = useState(false);
     const [localTime, setLocalTime] = useState("");
     const [sunriseTime, setSunriseTime] = useState("");
@@ -37,7 +37,6 @@ function Weather()
             if (weatherData)
             {
                 const localTime = new Date((response.data.dt * 1000) + (response.data.timezone));
-                // console.log(localTime);
                 setLocalTime(localTime);
                 setWeatherLoading(false);
             }
@@ -65,14 +64,16 @@ function Weather()
                     } 
                     catch (error) 
                     {
-                        setCityName("New Delhi");
-                        setLocationLoading(false);
-                        fetchWeather("New Delhi");
                         console.error('Error getting city name:', error);
                     }
                 },
                 (error) => 
                 {
+                    setLocationLoading(true);
+                    setCityName("New Delhi");
+                    console.log("Changing city name to New Delhi");
+                    setLocationLoading(false);
+                    fetchWeather("New Delhi");
                     console.error('Error getting location:', error);
                 }
             );
@@ -183,11 +184,11 @@ function Weather()
                     <span className="slider"></span>
                 </label>
                 <button type="submit">Search</button>
-            </form>
-            {locationLoading && <p>Fetching current location...</p>}
-            {weatherLoading && <p>Fetching weather data...</p>} */}
+            </form>*/}
+            {locationLoading && <p className='edge_cases'>Fetching current location...</p>}
+            {weatherLoading && <p className='edge_cases'>Fetching weather data...</p>} 
 
-            <div className='header'>
+            {!locationLoading && !weatherLoading && <div className='header'>
                 <div className='header_left'>
                     <Location className='location_icon'/>
                     {weatherData.name && (
@@ -210,9 +211,9 @@ function Weather()
                     </label>
                     <h1>°F</h1>
                 </div>
-            </div>
+            </div>}
 
-            <div className='temp_and_icon_container'>
+            {!locationLoading && !weatherLoading && <div className='temp_and_icon_container'>
                 <div className='temp_and_icon_container_left'>
                     <div className='temp_and_icon_container_left_left'>
                         <div className='main_temp'>
@@ -273,9 +274,9 @@ function Weather()
                         isDay={isDay}
                     />
                 </div>
-            </div>
+            </div>}
 
-            <div className='sunrise_sunset_container'>
+            {!locationLoading && !weatherLoading && <div className='sunrise_sunset_container'>
                 <h4>SUNRISE & SUNSET</h4>
                 <div className='sunrise_sunset_content'>
                     {sunriseTime && (
@@ -288,9 +289,9 @@ function Weather()
                         <p>{sunsetTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</p>
                     )}
                 </div>
-            </div>
+            </div>}
 
-            <div className='details'>
+            {!locationLoading && !weatherLoading && <div className='details'>
                 <h4>DETAILS</h4>
                 <div className='infos'>
                     <div>
@@ -318,7 +319,7 @@ function Weather()
                         {weatherData.main?.grnd_level ? <h3>{weatherData.main.grnd_level} hPa</h3> :<h3>0 hPa</h3>}
                     </div>
                 </div>
-            </div>
+            </div>}
         </div>
     );
 }
