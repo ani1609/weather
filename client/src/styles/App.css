@@ -6,5 +6,7 @@
   align-items: center;
   justify-content: center;
   /* background-image: linear-gradient(to right, #7F7FD5, #91EAE4); */
-  background-image: linear-gradient(#D9AFD9,#97D9E1);
+  background-image: linear-gradient(to left, #2A5470 , #4C4177);
+  /* background-image: linear-gradient(to right, #1a232d , #103153); */
+
 }

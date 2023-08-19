@@ -8,9 +8,9 @@ import { ReactComponent as CurrentLocation } from '../icons/currentLocation.svg'
 import { ReactComponent as ArrowUp } from '../icons/arrowUp.svg';
 import { ReactComponent as ArrowDown } from '../icons/arrowDown.svg';
 import { ReactComponent as Edit } from '../icons/edit.svg';
-// import { ReactComponent as Sun } from '../icons/clearSkyDay.svg';
-import Sun from "../images/sun.png";
 
+import ClearSky from '../images/clearSky1.jpg';
+import ClearSkyNight from '../images/nightSky2.jpg';
 
 function Weather() 
 {
@@ -34,8 +34,8 @@ function Weather()
         {
             setWeatherLoading(true);
             setDaylightPercentageBar(0);
-            const response = await axios.get(`https://weather-forcast-2.onrender.com/api/weather?cityName=${city}`);
-            // const response = await axios.get(`http://localhost:3000/api/weather?cityName=${city}`);
+            // const response = await axios.get(`https://weather-forcast-2.onrender.com/api/weather?cityName=${city}`);
+            const response = await axios.get(`http://localhost:3000/api/weather?cityName=${city}`);
             setWeatherData(response.data);
             if (weatherData)
             {
@@ -46,6 +46,8 @@ function Weather()
         } 
         catch (error) 
         {
+            alert("try with a valid locality name.");
+            window.location.reload();
             console.error('Error fetching weather:', error);
         }
     };
@@ -60,8 +62,8 @@ function Weather()
                     try 
                     {
                         setLocationLoading(true);
-                        const response = await axios.get(`https://weather-forcast-2.onrender.com/api/location?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`);
-                        // const response = await axios.get(`http://localhost:3000/api/location?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`);
+                        // const response = await axios.get(`https://weather-forcast-2.onrender.com/api/location?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`);
+                        const response = await axios.get(`http://localhost:3000/api/location?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`);
                         setCityName(response.data.city);
                         setLocationLoading(false);
                         fetchWeather(response.data.city);
@@ -76,7 +78,6 @@ function Weather()
                 {
                     setLocationLoading(true);
                     setCityName("New Delhi");
-                    console.log("Changing city name to New Delhi");
                     setLocationLoading(false);
                     fetchWeather("New Delhi");
                     console.error('Error getting location:', error);
@@ -171,6 +172,9 @@ function Weather()
 
     return (
         <div className="weather_parent">
+            {isDay && <img src={ClearSky} alt="background" className="background_image"/>}
+            {!isDay && <img src={ClearSkyNight} alt="background" className="background_image"/>}
+
             { formShow && <form onSubmit={handleSubmit}>
                 <input 
                     type="text" 
@@ -178,17 +182,11 @@ function Weather()
                     value={cityName}
                     onChange={handleInputChange}
                     required
+                    autoFocus
                 />
-                <label className="toggle-switch">
-                    <input 
-                        type="checkbox" 
-                        checked={isChecked}
-                        onChange={handleCheckboxChange}
-                    />
-                    <span className="slider"></span>
-                </label>
                 <button type="submit">Search</button>
             </form>}
+
 
             {locationLoading && !formShow && <p className='edge_cases'>Fetching current location...</p>}
             {weatherLoading && !formShow && <p className='edge_cases'>Fetching weather data...</p>} 
