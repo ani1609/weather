@@ -35,7 +35,6 @@ function Weather()
             setWeatherLoading(true);
             setDaylightPercentageBar(0);
             const response = await axios.get(`https://weather-server-ashy.vercel.app/api/weather?cityName=${city}`);
-            // const response = await axios.get(`http://localhost:3000/api/weather?cityName=${city}`);
             setWeatherData(response.data);
             if (weatherData)
             {
@@ -64,7 +63,6 @@ function Weather()
                     try 
                     {
                         setLocationLoading(true);
-                        // const response = await axios.get(`https://weather-forcast-2.onrender.com/api/location?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`);
                         const response = await axios.get(`https://weather-server-ashy.vercel.app/api/location?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`);
                         setCityName(response.data.city);
                         setLocationLoading(false);
