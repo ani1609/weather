@@ -1,3 +1,4 @@
+const cors = require('micro-cors')();
 const axios = require('axios');
 
 const fetchLocation = async ({ query: { latitude, longitude } }, res) => {
@@ -10,4 +11,4 @@ const fetchLocation = async ({ query: { latitude, longitude } }, res) => {
     }
 };
 
-module.exports = fetchLocation;
+module.exports = cors(fetchLocation);
