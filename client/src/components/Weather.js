@@ -22,7 +22,7 @@ function Weather()
     const [localTime, setLocalTime] = useState("");
     const [sunriseTime, setSunriseTime] = useState("");
     const [sunsetTime, setSunsetTime] = useState("");
-    const [isDay, setIsDay] = useState(false);
+    const [isDay, setIsDay] = useState();
     const [windDirection, setWindDirection]=useState("");
     const [daylightPercentageBar, setDaylightPercentageBar] = useState(0);
     const [formShow, setFormShow] = useState(false);
@@ -95,6 +95,8 @@ function Weather()
 
     const handleDetectCurrentLocation = () =>
     {
+        setLocationLoading(true);
+        setDaylightPercentageBar(0);
         detectCurrentLocation();
     };
 
@@ -189,20 +191,20 @@ function Weather()
             {locationLoading && !formShow && <p className='edge_cases'>Fetching current location...</p>}
             {weatherLoading && !formShow && <p className='edge_cases'>Fetching weather data...</p>} 
             
-            {!formShow && <div className='header'>
+            {!formShow && !weatherLoading && !locationLoading && <div className='header'>
                 <div className='header_left'>
-                    <Location className='location_icon'/>
+                    <Location className={isDay ? 'location_icon day_icon':'location_icon night_icon'}/>
                     {weatherData.name && (
-                        <h1>
+                        <h1 className={isDay ? 'day_heading1':'night_heading1'}>
                             {weatherData.name}
                             {weatherData.sys?.country ? `, ${weatherData.sys.country}` : ''}
                         </h1>
                     )}
-                    <Edit className='edit_icon' onClick={() => setFormShow(true)} />
+                    <Edit className={isDay ? 'edit_icon day_icon':'edit_icon night_icon'} onClick={() => setFormShow(true)} />
                 </div>
                 <div className='header_right'>
-                    <CurrentLocation className='current_location_icon'  onClick={handleDetectCurrentLocation}/>
-                    <h1>°C</h1>
+                    <CurrentLocation className={isDay ? 'current_location_icon day_icon':'current_location_icon night_icon'}  onClick={handleDetectCurrentLocation}/>
+                    <h1 className={isDay ? 'day_heading1':'night_heading1'}>°C</h1>
                     <label className="toggle-switch">
                         <input 
                             type="checkbox" 
@@ -211,7 +213,7 @@ function Weather()
                         />
                         <span className="slider"></span>
                     </label>
-                    <h1>°F</h1>
+                    <h1 className={isDay ? 'day_heading1':'night_heading1'}>°F</h1>
                 </div>
             </div>}
 
@@ -221,52 +223,52 @@ function Weather()
                         <div className='main_temp'>
                             {weatherData.main?.temp ? 
                                 isChecked ? 
-                                    (<h1>{Math.round((weatherData.main.temp*1.8)+32)}</h1>)
+                                    (<h1 className={isDay ? 'day_heading1':'night_heading1'}>{Math.round((weatherData.main.temp*1.8)+32)}</h1>)
                                     :
-                                    (<h1>{Math.round(weatherData.main.temp)}</h1>)
+                                    (<h1 className={isDay ? 'day_heading1':'night_heading1'}>{Math.round(weatherData.main.temp)}</h1>)
                             : 
-                            <h1>0</h1>}
+                            <h1 className={isDay ? 'day_heading1':'night_heading1'}>0</h1>}
 
-                            {isChecked ? (<div><h2>°F</h2></div>) : (<div><h2>°C</h2></div>)}
+                            {isChecked ? (<div><h2 className={isDay ? 'day_heading1':'night_heading1'}>°F</h2></div>) : (<div><h2 className={isDay ? 'day_heading1':'night_heading1'}>°C</h2></div>)}
                         </div>
                         <div className='temp_min_max'>
                             <div>
-                                <ArrowUp className='arrowUp_icon'/>
+                                <ArrowUp className={isDay ? 'arrowUp_icon day_icon':'arrowUp_icon night_icon'}/>
                                 {weatherData.main?.temp_max ? 
                                     isChecked ?
-                                        (<h2>{Math.round((weatherData.main.temp_max*1.8)+32)}</h2>)
+                                        (<h2 className={isDay ? 'day_heading1':'night_heading1'}>{Math.round((weatherData.main.temp_max*1.8)+32)}</h2>)
                                         :
-                                        (<h2>{Math.round(weatherData.main.temp_max)}</h2>)
+                                        (<h2 className={isDay ? 'day_heading1':'night_heading1'}>{Math.round(weatherData.main.temp_max)}</h2>)
                                 :
-                                <h2>0</h2>}
+                                <h2 className={isDay ? 'day_heading1':'night_heading1'}>0</h2>}
                             </div>
                             <div>
-                                <ArrowDown className='arrowDown_icon'/>
+                                <ArrowDown className={isDay ? 'arrowDown_icon day_icon':'arrowDown_icon night_icon'}/>
                                 {weatherData.main?.temp_min ? 
                                     isChecked ?
-                                        (<h2>{Math.round((weatherData.main.temp_min*1.8)+32)}</h2>)
+                                        (<h2 className={isDay ? 'day_heading1':'night_heading1'}>{Math.round((weatherData.main.temp_min*1.8)+32)}</h2>)
                                         :
-                                        (<h2>{Math.round(weatherData.main.temp_min)}</h2>)
+                                        (<h2 className={isDay ? 'day_heading1':'night_heading1'}>{Math.round(weatherData.main.temp_min)}</h2>)
                                 :
-                                <h2>0</h2>}
+                                <h2 className={isDay ? 'day_heading1':'night_heading1'}>0</h2>}
                             </div>
                         </div>
                     </div>
                     
                     <div className='temp_and_icon_container_left_right'>
                         {weatherData.weather?.[0]?.description ? (
-                        <h2>{weatherData.weather[0].description.charAt(0).toUpperCase() + weatherData.weather[0].description.slice(1)}</h2>
+                        <h2 className={isDay ? 'day_heading1':'night_heading1'}>{weatherData.weather[0].description.charAt(0).toUpperCase() + weatherData.weather[0].description.slice(1)}</h2>
                         ) : (
-                        <h2>NULL</h2>
+                        <h2 className={isDay ? 'day_heading1':'night_heading1'}>NULL</h2>
                         )}
 
                         {weatherData.main?.feels_like ? 
                             isChecked ?
-                                (<h2>Feels like {Math.round((weatherData.main.feels_like*1.8)+32)}</h2>)
+                                (<h2 className={isDay ? 'day_heading1':'night_heading1'}>Feels like {Math.round((weatherData.main.feels_like*1.8)+32)}</h2>)
                                 :
-                                (<h2>Feels like {Math.round(weatherData.main.feels_like)}</h2>)
+                                (<h2 className={isDay ? 'day_heading1':'night_heading1'}>Feels like {Math.round(weatherData.main.feels_like)}</h2>)
                         :
-                        <h2>Feels like 0</h2>}     
+                        <h2 className={isDay ? 'day_heading1':'night_heading1'}>Feels like 0</h2>}     
                     </div>
                 </div>
 
@@ -279,7 +281,8 @@ function Weather()
             </div>}
 
             {!formShow && <div className='sunrise_sunset_container'>
-                <h4>SUNRISE & SUNSET</h4>
+                <div className='night_bg'></div>
+                <h4 className={isDay ? 'day_heading2':'night_heading2'}>SUNRISE & SUNSET</h4>
                 <div className='sunrise_sunset_content'>
                     {sunriseTime && (
                         <p>{sunriseTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</p>
@@ -294,31 +297,32 @@ function Weather()
             </div>}
 
             {!formShow && <div className='details'>
-                <h4>DETAILS</h4>
+                <div className='night_bg'></div>
+                <h4 className={isDay ? 'day_heading2':'night_heading2'}>DETAILS</h4>
                 <div className='infos'>
                     <div>
                         <p>Pressure</p>
-                        {weatherData.main?.pressure ? <h3>{weatherData.main.pressure} hPa</h3> :<h3>0 hPa</h3>}
+                        {weatherData.main?.pressure ? <h3 className={isDay ? 'day_heading1':'night_heading1'}>{weatherData.main.pressure} hPa</h3> :<h3 className={isDay ? 'day_heading1':'night_heading1'}>0 hPa</h3>}
                     </div>
                     <div>
                         <p>Humidity</p>
-                        {weatherData.main?.humidity ? <h3>{weatherData.main.humidity} %</h3> :<h3>0 %</h3>}
+                        {weatherData.main?.humidity ? <h3 className={isDay ? 'day_heading1':'night_heading1'}>{weatherData.main.humidity} %</h3> :<h3 className={isDay ? 'day_heading1':'night_heading1'}>0 %</h3>}
                     </div>
                     <div>
                         <p>Visibility</p>
-                        {weatherData.visibility ? <h3>{weatherData.visibility} m</h3> :<h3>0 m</h3>}
+                        {weatherData.visibility ? <h3 className={isDay ? 'day_heading1':'night_heading1'}>{weatherData.visibility} m</h3> :<h3 className={isDay ? 'day_heading1':'night_heading1'}>0 m</h3>}
                     </div>
                     <div>
                         <p>{windDirection} wind</p>
-                        {weatherData.wind?.speed ? <h3>{weatherData.wind.speed} km/h</h3> :<h3>0 km/h</h3>}
+                        {weatherData.wind?.speed ? <h3 className={isDay ? 'day_heading1':'night_heading1'}>{weatherData.wind.speed} km/h</h3> :<h3 className={isDay ? 'day_heading1':'night_heading1'}>0 km/h</h3>}
                     </div>
                     <div>
                         <p>Sea Level</p>
-                        {weatherData.main?.sea_level ? <h3>{weatherData.main.sea_level} hPa</h3> :<h3>0 hPa</h3>}
+                        {weatherData.main?.sea_level ? <h3 className={isDay ? 'day_heading1':'night_heading1'}>{weatherData.main.sea_level} hPa</h3> :<h3 className={isDay ? 'day_heading1':'night_heading1'}>0 hPa</h3>}
                     </div>
                     <div>
                         <p>Ground Level</p>
-                        {weatherData.main?.grnd_level ? <h3>{weatherData.main.grnd_level} hPa</h3> :<h3>0 hPa</h3>}
+                        {weatherData.main?.grnd_level ? <h3 className={isDay ? 'day_heading1':'night_heading1'}>{weatherData.main.grnd_level} hPa</h3> :<h3 className={isDay ? 'day_heading1':'night_heading1'}>0 hPa</h3>}
                     </div>
                 </div>
             </div>}
