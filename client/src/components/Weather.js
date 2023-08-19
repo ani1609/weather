@@ -59,6 +59,8 @@ function Weather()
             navigator.geolocation.getCurrentPosition(
                 async (position) => 
                 {
+                    console.log(position.coords.latitude);
+                    console.log(position.coords.longitude);
                     try 
                     {
                         setLocationLoading(true);
