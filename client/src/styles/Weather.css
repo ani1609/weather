@@ -25,17 +25,25 @@
     box-sizing: border-box;
 }
 
-.night_bg
+.day_blend, .night_blend
 {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #05132B;
     box-sizing: border-box;
     opacity: 0.8;
     z-index: -1;
+}
+
+.day_blend
+{
+    background-color: #145fc1;
+}
+.night_blend
+{
+    background-color: #05132B;
 }
 
 .night_heading1
@@ -44,7 +52,7 @@
 }
 .day_heading1
 {
-
+    color: #D1E4FA;
 }
 
 .night_heading2
@@ -53,7 +61,7 @@
 }
 .day_heading2
 {
-
+    color: #81b7f9;
 }
 
 .night_icon
@@ -63,7 +71,7 @@
 
 .day_icon
 {
-
+    fill: #D1E4FA;
 }
 
 
@@ -140,6 +148,7 @@
     width: 25px;
     height: 25px;
     cursor: pointer;
+    margin-right: 5px;
 }
 
 .toggle-switch 
@@ -396,7 +405,7 @@ input:checked + .slider:before
     font-weight: 300;
     font-size: 14px;
     letter-spacing: 0.5px;
-    color: #CECFD4;
+    color: #d8d9df;
 }
 
 .infos>div h3
