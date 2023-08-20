@@ -281,7 +281,7 @@ function Weather()
             </div>}
 
             {!formShow && <div className='sunrise_sunset_container'>
-                <div className='night_bg'></div>
+                <div className={isDay ? 'day_blend':'night_blend'}></div>
                 <h4 className={isDay ? 'day_heading2':'night_heading2'}>SUNRISE & SUNSET</h4>
                 <div className='sunrise_sunset_content'>
                     {sunriseTime && (
@@ -297,7 +297,7 @@ function Weather()
             </div>}
 
             {!formShow && <div className='details'>
-                <div className='night_bg'></div>
+                <div className={isDay ? 'day_blend':'night_blend'}></div>
                 <h4 className={isDay ? 'day_heading2':'night_heading2'}>DETAILS</h4>
                 <div className='infos'>
                     <div>
