@@ -3,3 +3,12 @@
     fill: white;
     width: 200px;
 }
+
+
+@media only screen and (max-width: 480px)
+{
+    .icon
+    {
+        width: 175px;
+    }
+}

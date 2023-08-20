@@ -285,13 +285,13 @@ function Weather()
                 <h4 className={isDay ? 'day_heading2':'night_heading2'}>SUNRISE & SUNSET</h4>
                 <div className='sunrise_sunset_content'>
                     {sunriseTime && (
-                        <p>{sunriseTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</p>
+                        <p className={isDay ? 'day_heading1':'night_heading1'}>{sunriseTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</p>
                     )}
                     <div className='progress_bar'>
                         <div className='progress' style={{ width: `${daylightPercentageBar}%` }}></div>
                     </div>
                     {sunsetTime && (
-                        <p>{sunsetTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</p>
+                        <p className={isDay ? 'day_heading1':'night_heading1'}>{sunsetTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</p>
                     )}
                 </div>
             </div>}
