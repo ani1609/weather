@@ -6,7 +6,16 @@
   align-items: center;
   justify-content: center;
   /* background-image: linear-gradient(to right, #7F7FD5, #91EAE4); */
-  background-image: linear-gradient(to left, #2A5470 , #4C4177);
+    box-sizing: border-box;
+    background-image: linear-gradient(to left, #2A5470 , #4C4177);
   /* background-image: linear-gradient(to right, #1a232d , #103153); */
 
+}
+
+@media only screen and (max-width: 480px)
+{
+  .App
+  { 
+    padding: 0px 15px;
+  }
 }
