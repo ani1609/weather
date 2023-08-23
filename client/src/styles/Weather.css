@@ -112,7 +112,7 @@
 
 .weather_parent form input
 {
-    width: 14rem;
+    width: 12rem;
     height: 37px;
     border: none;
     outline: none;
@@ -127,18 +127,20 @@
 
 .weather_parent form button
 {
-    position: absolute;
-    right: 107px;
     background-color: transparent;
-    border: none;
-    outline: none;
+    border: 0;
+    outline: 0;
+    border-bottom: 1px solid white;
+    position: relative;
     cursor: pointer;
-    transform: rotate(90deg);
+    top: 2.5px;
 }
 
 .arrow_right
 {
-    width: 22px;
+    width: 26px;
+    height: 26px;
+    transform: rotate(90deg);
 }
 
 .header
