@@ -46,7 +46,7 @@ function Weather()
         } 
         catch (error) 
         {
-            alert("try with a valid locality name.");
+            alert("City name not available in OpenWeather API. Try with another more popular locality name.");
             window.location.reload();
             console.error('Error fetching weather:', error);
         }
