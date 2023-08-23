@@ -8,6 +8,7 @@ import { ReactComponent as CurrentLocation } from '../icons/currentLocation.svg'
 import { ReactComponent as ArrowUp } from '../icons/arrowUp.svg';
 import { ReactComponent as ArrowDown } from '../icons/arrowDown.svg';
 import { ReactComponent as Edit } from '../icons/edit.svg';
+import { ReactComponent as Cross } from '../icons/cross.svg';
 
 import ClearSky from '../images/clearSky1.jpg';
 import ClearSkyNight from '../images/nightSky2.jpg';
@@ -176,6 +177,8 @@ function Weather()
             {!isDay && <img src={ClearSkyNight} alt="background" className="background_image"/>}
 
             { formShow && <form onSubmit={handleSubmit}>
+                <div className={isDay ? 'day_blend':'night_blend'}></div>
+                <Cross className={isDay ? 'cross_icon day_icon':'cross_icon night_icon'} onClick={() => setFormShow(false)}/>
                 <input 
                     type="text" 
                     placeholder="Enter City Name"
@@ -184,7 +187,7 @@ function Weather()
                     required
                     autoFocus
                 />
-                <button type="submit">Search</button>
+                <button type="submit"><ArrowUp className={isDay? 'arrow_right day_icon':'arrow_right night_icon'}/></button>
             </form>}
 
 
@@ -217,7 +220,7 @@ function Weather()
                 </div>
             </div>}
 
-            {!formShow && <div className='temp_and_icon_container'>
+            {!formShow && !weatherLoading && !locationLoading && <div className='temp_and_icon_container'>
                 <div className='temp_and_icon_container_left'>
                     <div className='temp_and_icon_container_left_left'>
                         <div className='main_temp'>
@@ -280,7 +283,7 @@ function Weather()
                 </div>
             </div>}
 
-            {!formShow && <div className='sunrise_sunset_container'>
+            {!formShow && !weatherLoading && !locationLoading && <div className='sunrise_sunset_container'>
                 <div className={isDay ? 'day_blend':'night_blend'}></div>
                 <h4 className={isDay ? 'day_heading2':'night_heading2'}>SUNRISE & SUNSET</h4>
                 <div className='sunrise_sunset_content'>
@@ -296,7 +299,7 @@ function Weather()
                 </div>
             </div>}
 
-            {!formShow && <div className='details'>
+            {!formShow && !weatherLoading && !locationLoading && <div className='details'>
                 <div className={isDay ? 'day_blend':'night_blend'}></div>
                 <h4 className={isDay ? 'day_heading2':'night_heading2'}>DETAILS</h4>
                 <div className='infos'>
