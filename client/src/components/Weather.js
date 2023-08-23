@@ -187,7 +187,7 @@ function Weather()
                     required
                     autoFocus
                 />
-                <button type="submit"><ArrowUp className={isDay? 'arrow_right day_icon':'arrow_right night_icon'}/></button>
+                <button type='submit'><ArrowUp className={isDay? 'arrow_right day_icon':'arrow_right night_icon'}/></button>
             </form>}
 
 
