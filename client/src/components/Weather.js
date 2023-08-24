@@ -23,7 +23,7 @@ function Weather()
     const [localTime, setLocalTime] = useState("");
     const [sunriseTime, setSunriseTime] = useState("");
     const [sunsetTime, setSunsetTime] = useState("");
-    const [isDay, setIsDay] = useState();
+    const [isDay, setIsDay] = useState(true);
     const [windDirection, setWindDirection]=useState("");
     const [daylightPercentageBar, setDaylightPercentageBar] = useState(0);
     const [formShow, setFormShow] = useState(false);
@@ -46,7 +46,7 @@ function Weather()
         } 
         catch (error) 
         {
-            alert("City name not available in OpenWeather API. Try with another more popular locality name.");
+            alert("Locality name not available in OpenWeather API. Try with another more popular locality name.");
             window.location.reload();
             console.error('Error fetching weather:', error);
         }

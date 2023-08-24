@@ -1,7 +1,7 @@
 .weather_parent
 {
     width: 28rem;
-    height: 40rem;
+    height: 42rem;
     position: relative;
     z-index: 1;
     border-radius: 10px;
@@ -259,7 +259,7 @@ input:checked + .slider:before
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 4px;
+    margin-top: 20px;
     box-sizing: border-box;
 }
 
@@ -374,7 +374,7 @@ input:checked + .slider:before
     padding: 10px;
     border-radius: 5px;
     overflow: hidden;
-    margin-top: 25px;
+    margin-top: 41px;
 }
 
 .sunrise_sunset_container h4
