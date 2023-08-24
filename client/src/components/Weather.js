@@ -10,8 +10,8 @@ import { ReactComponent as ArrowDown } from '../icons/arrowDown.svg';
 import { ReactComponent as Edit } from '../icons/edit.svg';
 import { ReactComponent as Cross } from '../icons/cross.svg';
 
-import ClearSky from '../images/clearSky1.jpg';
-import ClearSkyNight from '../images/nightSky2.jpg';
+import ClearSky from '../images/clearSky.webp';
+import ClearSkyNight from '../images/nightSky.webp';
 
 function Weather() 
 {
