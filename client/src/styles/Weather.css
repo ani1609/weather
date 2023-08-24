@@ -125,6 +125,14 @@
     padding: 0px 5px;
 }
 
+.weather_parent form input::placeholder
+{
+    color: white;
+    font-size: 17px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
 .weather_parent form button
 {
     background-color: transparent;
