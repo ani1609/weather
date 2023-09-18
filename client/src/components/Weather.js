@@ -46,9 +46,9 @@ function Weather()
         } 
         catch (error) 
         {
-            alert("Locality name not available in OpenWeather API. Try with another more popular locality name.");
-            window.location.reload();
-            console.error('Error fetching weather:', error);
+            alert(`${city.charAt(0).toUpperCase() + city.slice(1)} locality is not available in OpenWeather API. Try with some other (more popular) locality name.`);
+            setCityName("New Delhi");
+            fetchWeather("New Delhi");
         }
     };
 
