@@ -46,10 +46,9 @@ function Weather()
         } 
         catch (error) 
         {
-            alert(`${city.charAt(0).toUpperCase() + city.slice(1)} locality is not available in OpenWeather API. Try with some other (more popular) locality name.'`);
-            fetchWeather("New Delhi");
+            alert(`${city.charAt(0).toUpperCase() + city.slice(1)} locality is not available in OpenWeather API. Try with some other (more popular) locality name.`);
             setCityName("New Delhi");
-            console.error('Error fetching weather:', error);
+            fetchWeather("New Delhi");
         }
     };
 
